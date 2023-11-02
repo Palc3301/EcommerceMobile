@@ -4,7 +4,7 @@ import Layout from "../../components/Layout/Layout";
 import { userData } from "../../data/userData";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-const Account = () => {
+const Account = ({ navigation }) => {
   return (
     <Layout>
       <View style={styles.container}>
@@ -12,7 +12,7 @@ const Account = () => {
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Text style={styles.name}>
             Hi
-            <Text style={{ color: "blue" }}> {userData.name}</Text>
+            <Text style={{ color: "green" }}> {userData.name}</Text>
             👋
           </Text>
           <Text>email : {userData.email}</Text>
@@ -20,19 +20,35 @@ const Account = () => {
         </View>
         <View style={styles.btnContainer}>
           <Text style={styles.heading}>Account Setting</Text>
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("profile", { id: userData._id })}
+          >
             <AntDesign style={styles.btnText} name="edit" />
             <Text style={styles.btnText}>Edit Profile</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() =>
+              navigation.navigate("myorders", { id: userData._id })
+            }
+          >
             <AntDesign style={styles.btnText} name="bars" />
             <Text style={styles.btnText}>My Orders</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("notifications")}
+          >
             <AntDesign style={styles.btnText} name="bells" />
             <Text style={styles.btnText}>Notification</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() =>
+              navigation.navigate("adminPanel", { id: userData._id })
+            }
+          >
             <AntDesign style={styles.btnText} name="windows" />
             <Text style={styles.btnText}>Admin Panel</Text>
           </TouchableOpacity>
