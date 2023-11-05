@@ -12,3 +12,11 @@ RAW/JSON;
   "country"; "Brail",
   "phone"; "1234567890"
 }
+
+POST
+http;//localhost:5000/api/v1/user/login
+RAW/JSON;
+{
+  "email"; "a@a.com",
+  "password"; "12345678"
+}
