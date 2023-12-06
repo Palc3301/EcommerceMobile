@@ -1,27 +1,36 @@
-'Change all ; to : in  POSTMAN'
-GET 
-http://localhost:5000/api/v1/user/profile
+"Change all ; to : in  POSTMAN";
+GET;
+//localhost:5000/api/v1/user/profile
 
-GET 
-http://localhost:5000/api/v1/user/logout
+http: GET;
+//localhost:5000/api/v1/user/logout
 
-POST
-http://localhost:5000/api/v1/user/register
-RAW/JSON;
-{
-  "name"; "Arruda",
-  "email"; "a@a.com",
-  "password"; "12345678",
-  "city"; "Campina Grande",
-  "address"; "somewhere",
-  "country"; "Brail",
-  "phone"; "1234567890"
+http: PUT;
+//localhost:5000/api/v1/user/profile-update
+http: {
+  ("name");
+  ("admin");
 }
 
-POST
-http;//localhost:5000/api/v1/user/login
-RAW/JSON;
+POST;
+//localhost:5000/api/v1/user/register
+http: RAW / JSON;
 {
-  "email"; "a@a.com",
-  "password"; "12345678"
+  ("name");
+  "Arruda", "email";
+  "a@a.com", "password";
+  "12345678", "city";
+  "Campina Grande", "address";
+  "somewhere", "country";
+  "Brail", "phone";
+  ("1234567890");
+}
+
+POST;
+http; //localhost:5000/api/v1/user/login
+RAW / JSON;
+{
+  ("email");
+  "a@a.com", "password";
+  ("12345678");
 }
