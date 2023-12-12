@@ -1,7 +1,7 @@
 import productModel from "../models/productModel.js";
 
 import cloudinary from "cloudinary";
-import { getDataUri } from "./../utils/features.js";
+import { getDataUri } from "./../utils/Features.js";
 
 // GET ALL PRODUCTS
 export const getAllProductsController = async (req, res) => {
@@ -289,3 +289,5 @@ export const deleteProductController = async (req, res) => {
     });
   }
 };
+
+// ========== PRODUCT CTRL ENDS ================

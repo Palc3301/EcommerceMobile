@@ -1,11 +1,12 @@
 import express from "express";
-import { isAuth } from "./../middlewares/authMiddleware.js";
+import { isAdmin, isAuth } from "./../middlewares/authMiddleware.js";
 import {
   createProductController,
   deleteProductController,
   deleteProductImageController,
   getAllProductsController,
   getSingleProductController,
+  productReviewController,
   updateProductController,
   updateProductImageController,
 } from "../controllers/productController.js";
@@ -14,6 +15,8 @@ import { singleUpload } from "../middlewares/multer.js";
 const router = express.Router();
 
 //rroutes
+// ============== PRODUCT ROUTES ==================
+
 // GET ALL PRODUCTS
 router.get("/get-all", getAllProductsController);
 
@@ -21,18 +24,34 @@ router.get("/get-all", getAllProductsController);
 router.get("/:id", getSingleProductController);
 
 // CREATE PRODUCT
-router.post("/create", isAuth, singleUpload, createProductController);
+router.post("/create", isAuth, isAdmin, singleUpload, createProductController);
 
 // UPDATE PRODUCT
-router.put("/:id", isAuth, updateProductController);
+router.put("/:id", isAuth, isAdmin, updateProductController);
 
 // UPDATE PRODUCT IMAGE
-router.put("/image/:id", isAuth, singleUpload, updateProductImageController);
+router.put(
+  "/image/:id",
+  isAuth,
+  isAdmin,
+  singleUpload,
+  updateProductImageController
+);
 
 // delete product image
-router.delete("/delete-image/:id", isAuth, deleteProductImageController);
+router.delete(
+  "/delete-image/:id",
+  isAuth,
+  isAdmin,
+  deleteProductImageController
+);
 
 // delete product
-router.delete("/delete/:id", isAuth, deleteProductController);
+router.delete("/delete/:id", isAuth, isAdmin, deleteProductController);
+
+// REVIEW PRODUCT
+router.put("/:id/review", isAuth, productReviewController);
+
+// ====================================================================
 
 export default router;
