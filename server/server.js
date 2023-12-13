@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
 import Stripe from "stripe";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
 
 import connectDB from "./config/db.js";
 // dot env config
@@ -28,6 +30,8 @@ cloudinary.v2.config({
 const app = express();
 
 //middlewares
+app.use(helmet());
+app.use(mongoSanitize());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
@@ -43,7 +47,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 app.use("/api/v1", testRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);
-app.use("/api/v1/cat", categoryRoutes);
+app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/order", orderRoutes);
 
 app.get("/", (req, res) => {

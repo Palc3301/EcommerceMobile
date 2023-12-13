@@ -44,6 +44,8 @@ RAW/JSON;
 "password"; "12345678"
 }
 
+
+
 PRODUCT
 GET
 http;//localhost:5000/api/v1/product/get-all
@@ -104,3 +106,8 @@ http://localhost:5000/api/v1/order/my-orders/:id
 
 POST
 http://localhost:5000/api/v1/order/create
+
+http://localhost:5000/api/v1/order/payments
+{
+"totalAmount"; "10",
+}

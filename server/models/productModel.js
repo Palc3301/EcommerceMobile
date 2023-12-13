@@ -8,7 +8,7 @@ const reviewSchema = new mongoose.Schema(
       required: [true, "name is require"],
     },
     rating: {
-      type: Number,
+      type: mongoose.Schema.Types.Mixed,
       default: 0,
     },
     comment: {
