@@ -1,62 +1,89 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import axios from "axios";
 import InputBox from "../../components/Form/InputBox";
 
 const Register = ({ navigation }) => {
   const loginImage = "https://fishcopfed.coop/images/login.png";
-  const [email, setEamil] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [contact, setContact] = useState("");
+  const [phone, setPhone] = useState("");
 
-  // login function
-  const handleRegister = () => {
-    if (!email || !password || !name || !address || !city || !contact) {
-      return alert("Please provide all fields");
+  const handleRegister = async () => {
+    try {
+      if (!email || !password || !name || !address || !city || !phone) {
+        return alert("Please provide all fields");
+      }
+
+      // Fazer solicitação de registro para o backend
+      const response = await axios.post(
+        "http://192.168.31.183:5000/api/v1/user/register",
+        {
+          name,
+          email,
+          password,
+          address,
+          city,
+          phone,
+          country: "country",
+          answer: "answer",
+        }
+      );
+
+      // Verificar se o registro foi bem-sucedido
+      if (response.data.success) {
+        alert("Registration Successful");
+        navigation.navigate("login");
+      } else {
+        alert(`Registration Failed: ${response.data.message}`);
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+      alert("Registration failed. Please try again.");
     }
-    alert("register Successfully");
-    navigation.navigate("login");
   };
+
   return (
     <View style={styles.container}>
       <Image source={{ uri: loginImage }} style={styles.image} />
 
       <InputBox
-        placeholder={"Enter You Name"}
+        placeholder={"Enter Your Name"}
         value={name}
         setValue={setName}
         autoComplete={"name"}
       />
       <InputBox
-        placeholder={"Enter You Email"}
+        placeholder={"Enter Your Email"}
         value={email}
-        setValue={setEamil}
+        setValue={setEmail}
         autoComplete={"email"}
       />
       <InputBox
         value={password}
         setValue={setPassword}
-        placeholder={"Enter You Password"}
+        placeholder={"Enter Your Password"}
         secureTextEntry={true}
       />
       <InputBox
-        placeholder={"Enter You address"}
+        placeholder={"Enter Your Address"}
         value={address}
         setValue={setAddress}
         autoComplete={"address-line1"}
       />
       <InputBox
-        placeholder={"Enter You city"}
+        placeholder={"Enter Your City"}
         value={city}
         setValue={setCity}
         autoComplete={"country"}
       />
       <InputBox
-        placeholder={"Enter You contact no"}
-        value={contact}
-        setValue={setContact}
+        placeholder={"Enter Your Contact No"}
+        value={phone}
+        setValue={setPhone}
         autoComplete={"tel"}
       />
       <View style={styles.btnContainer}>
@@ -64,21 +91,20 @@ const Register = ({ navigation }) => {
           <Text style={styles.loginBtnText}>Register</Text>
         </TouchableOpacity>
         <Text>
-          Alredy a user please ?{"  "}
+          Already a user?{"  "}
           <Text
             style={styles.link}
-            onPress={() => navigation.navigate("register")}
-          >
-            login !
+            onPress={() => navigation.navigate("login")}>
+            Login!
           </Text>
         </Text>
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
-    // alignItems: "center",
     justifyContent: "center",
     height: "100%",
   },
@@ -110,4 +136,5 @@ const styles = StyleSheet.create({
     color: "red",
   },
 });
+
 export default Register;

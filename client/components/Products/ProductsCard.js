@@ -1,20 +1,25 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useCart } from "../CartContext";
 
 const ProductsCard = ({ p }) => {
   const navigation = useNavigation();
+  const { addToCart } = useCart();
 
-  //more detaisl btn
   const handleMoreButton = (id) => {
     navigation.navigate("productDetails", { _id: id });
-    console.log(id);
   };
 
-  //ADD TO CART
   const handleAddToCart = () => {
-    alert("added to cart");
+    addToCart(p);
+    alert("Added to cart");
   };
+
+  const handleIncrement = () => {
+    addToCart(p); // Incrementa a quantidade no carrinho
+  };
+
   return (
     <View>
       <View style={styles.card}>
@@ -26,8 +31,7 @@ const ProductsCard = ({ p }) => {
         <View style={styles.BtnContainer}>
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => handleMoreButton(p._id)}
-          >
+            onPress={() => handleMoreButton(p._id)}>
             <Text style={styles.btnText}>Details</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnCart} onPress={handleAddToCart}>
@@ -79,6 +83,13 @@ const styles = StyleSheet.create({
   },
   btnCart: {
     backgroundColor: "orange",
+    height: 20,
+    width: 75,
+    borderRadius: 5,
+    justifyContent: "center",
+  },
+  btnIncrement: {
+    backgroundColor: "blue",
     height: 20,
     width: 75,
     borderRadius: 5,

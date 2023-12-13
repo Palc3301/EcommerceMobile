@@ -56,6 +56,4 @@ router.delete("/delete/:id", isAuth, isAdmin, deleteProductController);
 // REVIEW PRODUCT
 router.put("/:id/review", isAuth, productReviewController);
 
-// ====================================================================
-
 export default router;

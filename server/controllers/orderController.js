@@ -78,6 +78,26 @@ export const getMyOrdersCotroller = async (req, res) => {
   }
 };
 
+// GET ALL ORDERS
+export const getAllController = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.status(200).send({
+      success: true,
+      message: "Todos os dados dos pedidos",
+      totalOrders: orders.length,
+      orders,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Erro ao obter dados dos pedidos",
+      error,
+    });
+  }
+};
+
 // GET SINGLE ORDER INFO
 export const singleOrderDetrailsController = async (req, res) => {
   try {

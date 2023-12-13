@@ -7,6 +7,7 @@ import {
   getMyOrdersCotroller,
   paymetsController,
   singleOrderDetrailsController,
+  getAllController,
 } from "../controllers/orderController.js";
 
 const router = express.Router();
@@ -19,6 +20,9 @@ router.post("/create", isAuth, createOrderController);
 
 //  GET ALL ORDERS
 router.get("/my-orders", isAuth, getMyOrdersCotroller);
+
+// GET ALL ORDERS
+router.get("/get-all-orders", isAuth, getAllController);
 
 //  GET SINGLE ORDER DETAILS
 router.get("/my-orders/:id", isAuth, singleOrderDetrailsController);

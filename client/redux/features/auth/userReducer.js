@@ -19,4 +19,16 @@ export const userReducer = createReducer({}, (builder) => {
   builder.addCase("clearMessage", (state) => {
     state.message = null;
   });
+  builder.addCase("registerRequest", (state, action) => {
+    state.loading = true;
+  });
+  builder.addCase("registerSuccess", (state, action) => {
+    state.loading = false;
+    state.message = action.payload;
+    state.isAuth = true; // Isso pode depender da lógica do seu aplicativo
+  });
+  builder.addCase("registerFail", (state, action) => {
+    state.isAuth = false;
+    state.error = action.payload;
+  });
 });

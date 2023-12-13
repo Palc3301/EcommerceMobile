@@ -27,3 +27,27 @@ export const login = (email, password) => async (dispatch) => {
     });
   }
 };
+
+export const register = (userData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "registerRequest",
+    });
+
+    const { data } = await axios.post(`${server}/user/register`, userData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    dispatch({
+      type: "registerSuccess",
+      payload: data?.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "registerFail",
+      payload: error.response?.data?.message || "Registration failed",
+    });
+  }
+};

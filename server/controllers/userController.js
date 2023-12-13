@@ -1,6 +1,8 @@
 import userModel from "../models/userModel.js";
 import cloudinary from "cloudinary";
 import { getDataUri } from "../utils/Features.js";
+import JWT from "jsonwebtoken";
+
 export const registerController = async (req, res) => {
   try {
     const { name, email, password, address, city, country, phone, answer } =
@@ -59,34 +61,41 @@ export const registerController = async (req, res) => {
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
-    //validation
+
+    // Validation
     if (!email || !password) {
       return res.status(500).send({
         success: false,
         message: "Please Add Email OR Password",
       });
     }
-    // check user
+
+    // Check user
     const user = await userModel.findOne({ email });
-    //user valdiation
+
+    // User validation
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: "USer Not Found",
+        message: "User Not Found",
       });
     }
-    //check pass
+
+    // Check password
     const isMatch = await user.comparePassword(password);
-    //valdiation pass
+
+    // Password validation
     if (!isMatch) {
       return res.status(500).send({
         success: false,
-        message: "invalid credentials",
+        message: "Invalid Credentials",
       });
     }
-    //teken
+
+    // Generate token
     const token = user.generateToken();
 
+    // Send response with token and user information
     res
       .status(200)
       .cookie("token", token, {
@@ -102,15 +111,14 @@ export const loginController = async (req, res) => {
         user,
       });
   } catch (error) {
-    console.log(error);
+    console.error("Error In Login API:", error);
     res.status(500).send({
-      success: "false",
-      message: "Error In Login Api",
+      success: false,
+      message: "Error In Login API",
       error,
     });
   }
 };
-
 // GET USER PROFILE
 export const getUserProfileController = async (req, res) => {
   try {
@@ -159,26 +167,32 @@ export const logoutController = async (req, res) => {
 // UPDATE USER PROFILE
 export const updateProfileController = async (req, res) => {
   try {
+    console.log("User ID from Token:", req.user._id);
+
     const user = await userModel.findById(req.user._id);
     const { name, email, address, city, country, phone } = req.body;
-    // validation + Update
+
+    // Update user data
     if (name) user.name = name;
     if (email) user.email = email;
     if (address) user.address = address;
     if (city) user.city = city;
     if (country) user.country = country;
     if (phone) user.phone = phone;
-    //save user
+
+    // Save user
     await user.save();
+
     res.status(200).send({
       success: true,
+      data: { user },
       message: "User Profile Updated",
     });
   } catch (error) {
-    console.log(error);
+    console.log("Error in Update Profile:", error);
     res.status(500).send({
       success: false,
-      message: "Error In update profile API",
+      message: "Error in update profile API",
       error,
     });
   }
