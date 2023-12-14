@@ -30,7 +30,7 @@ const Profile = ({ navigation }) => {
         return;
       }
       const tokenId =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc4OGI3ZjIwZmM4MzMwNmM2OWQ0ZTAiLCJpYXQiOjE3MDI0NjY0NzYsImV4cCI6MTcwMzA3MTI3Nn0.Ny67CMVTZ0G0cJOPigyLPnQenpobvv1kdXYvHDBoEP0";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc5YWNjMjA4NDhkYWRjZGNiMzdjNjAiLCJpYXQiOjE3MDI0NzI5MTksImV4cCI6MTcwMzA3NzcxOX0.FjqeDRFSocF3bina6YCrduwirVkcHcruZftEFsguUUkCJ9.eyJfaWQiOiI2NTc4OGI3ZjIwZmM4MzMwNmM2OWQ0ZTAiLCJpYXQiOjE3MDI0NjY0NzYsImV4cCI6MTcwMzA3MTI3Nn0.Ny67CMVTZ0G0cJOPigyLPnQenpobvv1kdXYvHDBoEP0";
       const response = await axios.get(
         "http://192.168.31.183:5000/api/v1/user/profile",
         {

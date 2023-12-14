@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "mongoose": "^8.0.0",
-    "react-native-x-carousel": "^1.0.1"
-  }
-}

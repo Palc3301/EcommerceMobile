@@ -46,7 +46,7 @@ const ProductDetails = ({ route }) => {
     try {
       // Enviar uma solicitação para criar um pedido no servidor
       const response = await axios.post(
-        "http://192.168.31.183:5000/api/v1/order/create",
+        "http://110.5.3.131:5000/api/v1/order/create",
         {
           shippingInfo: {
             /* suas informações de envio */
